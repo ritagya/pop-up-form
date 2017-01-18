@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title></title>
+      <style type="text/css">
+         .cta {
+         width: 250px;
+         background: #f1f1f1;
+         }
+         .cta.content {
+         height: 130px;
+         padding: 10px;
+         }
+         .cta.right {
+         float: right;
+         margin: 5px 0 10px 20px;
+         border-radius: 3px;
+         background: #f1f1f1;
+         padding: 20px;
+         }
+         .cta.right button {
+         width: 100%;
+         }
+         #fade-out-wrap {
+         position: relative;
+         }
+         #fade-out {
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         width: 100%;
+         height: 280px;
+         text-align: center;
+         background: -moz-linear-gradient(top,  rgba(255,255,255,0) 10%, rgba(255,255,255,1) 90%);
+         background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 10%, rgba(255,255,255,1) 90%);
+         background: linear-gradient(to bottom,  rgba(255,255,255,0) 10%, rgba(255,255,255,1) 90%); 
+         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+         }
+         #fade-out-wrap button#download {
+         border: 0;
+         background: #00a6dd;
+         color: #fff;
+         font-size: 16px;
+         text-transform: uppercase;
+         padding: 13px;
+         border-radius: 3px;
+         font-weight: 600;
+         }
+         div#iframe-wrap {
+         position: absolute;
+         display: none;
+         background: #f1f1f1;
+         left:45%;
+         margin: auto 0;
+         }
+         div#iframe-wrap button {
+         position: absolute;
+         top: 0;
+         right: 0;
+         }
+         button#close {
+         position: absolute;
+         outline: none;
+         border: 0;
+         padding: 8px;
+         color: #00a6dd;
+         text-transform: uppercase;
+         font-size: 12px;
+         z-index:1000;
+         background: #f1f1f1;
+         }
+         section {
+         overflow: hidden;
+         }
+         .two_columns #right, .two_columns #blog_left {
+         overflow: initial !important; 
+         }
+         @media (max-width:970px){
+         div#iframe-wrap {
+         left:35%;
+         }
+         }
+         @media (max-width:600px){
+         div#iframe-wrap {
+         left:25%;
+         }
+         }
+         @media (max-width:600px){
+         div#iframe-wrap {
+         left:15%;
+         }
+         }
+         #contactForm { 
+         display: none;
+         padding: 2em;
+         text-align: center;
+         position: fixed;
+         top:30%;
+         left:50%;
+         transform: translate(-50%,-50%);
+         -webkit-transform: translate(-50%,-50%);
+         z-index: 100;
+         }
+         .box_wrap {
+         text-align: center;
+         margin-top: 50px;
+         }
+         .box {
+         margin: 10px;
+         position: relative;
+         border-radius: 3px;
+         border: 1px solid #e5e5e5;
+         background-color: #fafafa;
+         padding: 40px;
+         width: 350px;
+         display: inline-block;
+         vertical-align: top;
+         box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+         }
+         form.form {
+         left: 0;
+         margin-left: 0;
+         top: 150px;
+         width: 100%;
+         }
+         .field-label{
+         font-weight: bold;
+         font-family: Arial;
+         color: #333;
+         width: 100%;
+         text-align: left;
+         margin-left: 10px;
+         }
+         label {
+         width: 50%;
+         display: flex;
+         flex-direction: column;
+         box-sizing: border-box;
+         margin: 8px 0;
+         }
+         input.text{
+         line-height: 2.2em;
+         padding: 5px 10px;
+         font-size: 14px;
+         margin: 5px 0;
+         border-radius: 4px;
+         border: 2px solid #e5e5e5;
+         width: 90%;
+         }
+         .lightbluefill {
+         color: #008ec6;
+         background: #cceffa;
+         border-color: #008ec6;
+         }
+         button{
+         text-transform: uppercase;
+         border: 1px solid rgba(255,255,255,0.3);
+         padding: 12px 25px;
+         border-radius: 3px;
+         display: inline-block;
+         font-size: 16px;
+         font-weight: 600;
+         color: #fff;
+         -webkit-transition: 0.1s ease-out;
+         -moz-transition: 0.1s ease-out;
+         -o-transition: 0.1s ease-out;
+         transition: 0.1s ease-out;
+         cursor: pointer;
+         margin: 0 auto;
+         margin-top: 30px;
+         }
+         #failure{
+         width: 100%;
+         background-color: #fc651b ;
+         text-align: center;
+         padding: 6px 0;
+         font-weight:bold;
+         font-size:14px;
+         color:white;
+         border-radius:3px;
+         display:none;
+         }
+         #success{
+         width: 100%;
+         background-color:#8fc822 ;
+         text-align: center;
+         padding: 6px 0;
+         font-weight:bold;
+         font-size:14px;
+         color:white;
+         border-radius:3px;
+         display:none;
+         }
+         label.error{
+         width: 100%;
+         text-align : left;
+         }
+         #overlay-back { 
+         position   : absolute; 
+         top        : 0; 
+         left       : 0; 
+         width      : 100%; 
+         height     : 100%; 
+         background : #000; 
+         opacity    : 0.6; 
+         filter     : alpha(opacity=60); 
+         z-index    : 5;
+         display    : none;
+         } 
+      </style>
+   </head>
+   <body>
+      <div class="cta right">
+         <!--<div id="fade-out-wrap">-->
+         <button id="download" class="btn lightbluefill" src="">Download</button>
+         <div id="overlay-back"></div>
+         <div class="box_wrap" id="contactForm">
+            <div class="box">
+               <form class="form">
+                  <div>
+                     <label class="field-label" for="first_name">First Name *</label> <input class="text" id="first_name" maxlength="40" name="first_name" onchange="" size="30" type="text" value="" /> <label class="error" for="first_name" id="first_name_error">This field is required.</label>
+                  </div>
+                  <div>
+                     <label class="field-label" for="last_name">Last Name *</label> <input class="text" id="last_name" maxlength="80" name="last_name" onchange="" size="30" type="text" value="" /> <label class="error" for="last_name" id="last_name_error">This field is required.</label>
+                  </div>
+                  <div>
+                     <label class="field-label" for="company">Company *</label> <input class="text" id="company" maxlength="255" name="company" onchange="" size="30" type="text" value="" /> <label class="error" for="company" id="company_error">This field is required.</label>
+                  </div>
+                  <div>
+                     <label class="field-label" for="email">Email *</label> <input class="text" id="email" maxlength="255" name="email" onchange="" size="30" type="text" value="" /> <label class="error" for="email" id="email_error">This field is required.</label>
+                  </div>
+                  <div>
+                     <label class="field-label" for="phone">Business Phone *</label> <input class="text" id="phone" maxlength="40" name="phone" onchange="" size="30" type="text" value="" /> <label class="error" for="phone" id="phone_error">This field is required.</label>
+                  </div>
+                  <div><input for="usecase" id="usecase" type="hidden" value="framework" /></div>
+                  <div id="failure">Sorry, there was an issue, please try again.</div>
+                  <div id="success">The form was submitted successfully!</div>
+                  <div class="button">
+                     <button class="button lightbluefill" id="btnsubmit" type="submit">Submit</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+      <script type="text/javascript">
+         $(function() {
+         
+         // contact form animations
+         $('#download').click(function() {
+           $('#contactForm , #overlay-back').fadeToggle();
+         })
+         $(document).mouseup(function (e) {
+           var container = $("#contactForm");
+           var overlay = $("#overlay-back");
+           if (!container.is(e.target) // if the target of the click isn't the container...
+               && container.has(e.target).length === 0) // ... nor a descendant of the container
+           {
+               container.fadeOut();
+               overlay.fadeOut();
+           }
+         });
+         
+         });
+         $(function() {
+           $('.error').hide();
+           $(".button").click(function() {
+             // validate and process form here
+           
+             $('.error').hide();
+               
+             var first_name = $("input#first_name").val();
+             var last_name = $("input#last_name").val();
+             var company = $("input#company").val();
+             var email = $("input#email").val();
+             var phone = $("input#phone").val();
+             var usecase = $("#usecase").val();
+         
+                 if (first_name == "") {
+               $("label#first_name_error").show().css("color", "#fc651b");
+               $("input#first_name").css("border-color", "#fc651b");
+               return false;
+             }
+                 if (last_name == "") {
+               $("label#last_name_error").show().css("color", "#fc651b");
+               $("input#last_name").css("border-color", "#fc651b");
+               return false;
+             }
+             
+                 if (company == "") {
+               $("label#company_error").show().css("color", "#fc651b");
+               $("input#company").css("border-color", "#fc651b");
+               return false;
+             }
+                 
+                 if (email == "") {
+               $("label#email_error").show().css("color", "#fc651b");
+               $("input#email").css("border-color", "#fc651b");
+               return false;
+             }
+                 
+                 if (phone == "") {
+               $("label#phone_error").show().css("color", "#fc651b");
+               $("input#phone").css("border-color", "#fc651b");
+               return false;
+             }
+         
+          $(this).val('Please wait ...');
+         
+         var dataString = 'first_name='+ first_name + 
+         '&last_name='+ last_name + 
+         '&company='+ company +
+         '&email=' + email + 
+         '&phone=' + phone +
+         '&usecase='+ usecase;
+         
+         $.ajax({
+               type: "POST",
+               url: "../../../sites/all/themes/company/form-handler.php",
+               data: dataString,
+             dataType:"html",
+               success: function() {
+                 $('#success').fadeIn().css("display", "block");
+                 $('#btnsubmit').val("Submitted").prop("disabled", true);
+               },
+               error: function(XMLHttpRequest, textStatus, errorThrown) {
+               console.log(XMLHttpRequest, textStatus, errorThrown);
+               }
+           });
+         
+             return false;
+             
+           });
+         });
+         
+             
+      </script>
+   </body>
+</html>
